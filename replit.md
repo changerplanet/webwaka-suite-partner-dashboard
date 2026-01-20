@@ -1,39 +1,67 @@
 # WebWaka Partner Dashboard
 
 ## Overview
-This is the WebWaka Partner Dashboard - a suite module for the WebWaka platform. The dashboard provides a web interface for partners.
+Phase 4C of the WebWaka Modular Rebuild - Partner Dashboard declarative consumer of Core Dashboard Control Engine.
 
-**Status:** Infrastructure scaffolded. Implementation pending.
+**Status:** Implementation complete  
+**Phase:** 4C  
+**Type:** TypeScript headless library (no UI)
 
 ## Project Structure
 ```
 ├── src/
-│   ├── server.js          # Express server (port 5000)
-│   └── public/
-│       ├── index.html     # Dashboard frontend
-│       └── styles.css     # Styling
-├── module.manifest.json   # Module metadata
-├── module.contract.md     # Module contract definition
-└── package.json           # Node.js dependencies
+│   ├── index.ts                     # Main exports
+│   ├── types/
+│   │   └── dashboard.types.ts       # Type definitions
+│   ├── dashboards/
+│   │   ├── partner.dashboard.ts     # Root dashboard declaration
+│   │   └── partner.sections.ts      # 9 section declarations
+│   ├── resolution/
+│   │   └── resolution.contract.ts   # Phase 4A resolution consumption
+│   └── __tests__/
+│       └── partner.dashboard.test.ts # All required tests
+├── dist/                            # Compiled output
+├── module.manifest.json             # Module metadata & capabilities
+├── tsconfig.json                    # TypeScript configuration
+└── vitest.config.ts                 # Test configuration
 ```
 
-## Running the Project
-The project uses Express.js and runs on port 5000.
+## Partner Dashboard Sections
+| # | Section | Permissions | Entitlements | Feature Flags |
+|---|---------|-------------|--------------|---------------|
+| 1 | Partner Overview | partner:overview:read | - | - |
+| 2 | Tenants Management | tenants:read | - | - |
+| 3 | Pricing & Plans | pricing:read | - | - |
+| 4 | Incentives & Affiliates | incentives:read | - | incentives-enabled |
+| 5 | Feature Flags | feature-flags:read | - | - |
+| 6 | Branding / Whitelabel | branding:read | whitelabel-access | - |
+| 7 | Audit & Activity | audit:read | - | - |
+| 8 | AI & Automation | ai:read | - | ai-features-enabled |
+| 9 | Support & Integrations | integrations:read | - | - |
 
-- **Development:** `npm start` or `npm run dev`
-- **Server:** Binds to 0.0.0.0:5000
+## Capabilities
+- `dashboard:partner.resolve`
+- `dashboard:partner.snapshot.generate`
+- `dashboard:partner.snapshot.verify`
+
+## Commands
+- `npm run build` - Compile TypeScript
+- `npm test` - Run all tests
 
 ## Dependencies
-- Express.js (web server)
+- TypeScript (dev)
+- Vitest (dev, testing)
 
-## Module Information
-- **Module ID:** webwaka-suite-partner-dashboard
-- **Class:** Suite
-- **Type:** Dashboard
-- **Version:** 0.0.0
-- **Registry:** webwaka-core-registry
+## Phase 4A Resolution Contract
+This module consumes:
+- `resolveDashboard(declaration, context)`
+- `generateDashboardSnapshot(resolved)`
+- `verifyDashboardSnapshot(snapshot)`
+- `evaluateFromSnapshot(snapshot)`
 
-## Recent Changes
-- Initial setup for Replit environment
-- Created Express server with static file serving
-- Added dashboard UI with module information display
+## Test Coverage
+- Visibility Gating (permissions, entitlements, feature flags)
+- Snapshot Integrity (generation, verification, tamper detection, expiration)
+- Determinism (10x identical output test)
+- Tenant Isolation (cross-partner/tenant error handling)
+- Offline Equivalence (online vs snapshot evaluation)

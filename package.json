@@ -1,16 +1,27 @@
 {
   "name": "webwaka-suite-partner-dashboard",
   "version": "1.0.0",
-  "description": "WebWaka Dashboard Suite Module",
-  "main": "src/server.js",
-  "scripts": {
-    "start": "node src/server.js",
-    "dev": "node src/server.js"
+  "description": "WebWaka Partner Dashboard - Phase 4C declarative consumer",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
   },
-  "keywords": [],
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": ["webwaka", "dashboard", "partner"],
   "author": "WebWaka Team",
   "license": "Proprietary",
-  "dependencies": {
-    "express": "^5.2.1"
+  "devDependencies": {
+    "@types/node": "^25.0.9",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.17"
   }
 }

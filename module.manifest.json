@@ -1,12 +1,20 @@
 {
   "moduleId": "webwaka-suite-partner-dashboard",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "class": "suite",
   "type": "dashboard",
-  "dependencies": [],
-  "capabilities": [],
+  "dependencies": [
+    "webwaka-core-dashboard-engine"
+  ],
+  "capabilities": [
+    "dashboard:partner.resolve",
+    "dashboard:partner.snapshot.generate",
+    "dashboard:partner.snapshot.verify"
+  ],
   "metadata": {
     "author": "WebWaka Team",
-    "license": "Proprietary"
+    "license": "Proprietary",
+    "phase": "4C",
+    "description": "Partner Dashboard - Declarative consumer of Core Dashboard Control Engine"
   }
 }
