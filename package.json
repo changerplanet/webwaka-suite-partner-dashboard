@@ -1,0 +1,16 @@
+{
+  "name": "webwaka-suite-partner-dashboard",
+  "version": "1.0.0",
+  "description": "WebWaka Dashboard Suite Module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node src/server.js"
+  },
+  "keywords": [],
+  "author": "WebWaka Team",
+  "license": "Proprietary",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}

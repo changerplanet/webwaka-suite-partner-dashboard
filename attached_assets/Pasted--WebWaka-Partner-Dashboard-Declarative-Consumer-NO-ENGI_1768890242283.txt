@@ -1,0 +1,222 @@
+
+WebWaka Partner Dashboard — Declarative Consumer (NO ENGINE, NO LOGIC)
+
+⸻
+
+CONTEXT
+
+You are implementing Phase 4C of the WebWaka Modular Rebuild.
+
+This phase introduces the Partner Dashboard, which is a pure declarative consumer of:
+	•	Phase 4A — Core Dashboard Control Engine
+	•	Phase 4B — Super Admin Dashboard Declaration Patterns
+
+This phase is constitutionally constrained.
+
+⸻
+
+ABSOLUTE SCOPE (NON-NEGOTIABLE)
+
+✅ YOU MUST:
+	•	Define Partner Dashboard declarations ONLY
+	•	Use pure data structures
+	•	Gate all visibility using:
+	•	Permissions
+	•	Entitlements
+	•	Feature flags
+	•	Consume Phase 4A resolution model
+	•	Follow Phase 4B declaration style exactly
+
+❌ YOU MUST NOT:
+	•	Re-implement any engine logic
+	•	Implement permissions, entitlements, or feature flags
+	•	Hardcode roles (e.g. “partner”, “admin”)
+	•	Implement UI, routing, or persistence
+	•	Add pricing, incentives, billing, or business logic
+	•	Introduce new evaluation rules
+
+This repo is not a control plane — it is a policy-driven consumer.
+
+⸻
+
+REPOSITORY
+
+Repo: webwaka-suite-partner-dashboard
+(Already created and configured via Manus)
+
+This is a TypeScript-only, headless library.
+
+⸻
+
+ARCHITECTURAL POSITION
+
+The Partner Dashboard:
+	•	Is downstream of Super Admin controls
+	•	Is scoped to partner-level context
+	•	Can only surface what the partner is:
+	•	Allowed to see (permissions)
+	•	Entitled to access (entitlements)
+	•	Enabled for (feature flags)
+
+⸻
+
+REQUIRED DELIVERABLES
+
+1️⃣ Dashboard Declarations (PURE DATA)
+
+Create files under:
+
+src/dashboards/
+
+Required files:
+	•	partner.dashboard.ts
+→ Root dashboard declaration
+	•	partner.sections.ts
+→ Section definitions only
+
+All declarations must be:
+	•	Serializable
+	•	Deterministic
+	•	Free of functions
+	•	Free of side effects
+
+⸻
+
+2️⃣ Partner Dashboard Sections (AUTHORITATIVE)
+
+Define at least the following sections:
+
+#	Section	Gating Requirements
+1	Partner Overview	partner:overview:read
+2	Tenants Management	tenants:read
+3	Pricing & Plans	pricing:read
+4	Incentives & Affiliates	incentives:read + incentives-enabled
+5	Feature Flags	feature-flags:read
+6	Branding / Whitelabel	branding:read + whitelabel-access
+7	Audit & Activity	audit:read
+8	AI & Automation	ai:read + ai-features-enabled
+9	Support & Integrations	integrations:read
+
+Each section must declare:
+	•	Required permissions
+	•	Required entitlements (if any)
+	•	Required feature flags (if any)
+
+⸻
+
+3️⃣ Resolution Consumption (NO NEW ENGINE)
+
+You MUST use the Phase 4A resolution contract:
+	•	resolveDashboard(declaration, context)
+	•	generateDashboardSnapshot(resolved)
+	•	verifyDashboardSnapshot(snapshot)
+	•	evaluateFromSnapshot(snapshot)
+
+If imported directly, do not wrap or alter behavior.
+
+⸻
+
+4️⃣ Snapshot Support (MANDATORY)
+
+Partner Dashboard must support:
+	•	Snapshot generation
+	•	Snapshot verification
+	•	Offline evaluation
+
+This enables:
+	•	Mobile-first usage
+	•	Offline partner operations
+	•	Edge deployments
+
+⸻
+
+REQUIRED TESTS (HARD STOP)
+
+You MUST implement tests proving:
+
+Visibility Gating
+	•	Section hidden if permission missing
+	•	Section hidden if entitlement missing
+	•	Section hidden if feature flag disabled
+
+Snapshot Integrity
+	•	Snapshot verifies successfully
+	•	Tampered snapshot is rejected
+	•	Expired snapshot fails
+
+Determinism
+	•	Same inputs → same resolved dashboard (10× test)
+
+Tenant Isolation
+	•	Cross-tenant context throws error
+
+⸻
+
+HARD STOP CONDITION (MANDATORY)
+
+You must include a test named:
+
+“Partner dashboard resolves deterministically with correct gating, snapshot integrity, and offline equivalence”
+
+This test must prove:
+	1.	Online resolution
+	2.	Snapshot generation
+	3.	Snapshot verification
+	4.	Offline evaluation
+	5.	Identical results across all steps
+
+⸻
+
+CAPABILITIES TO REGISTER
+
+In module.manifest.json:
+
+[
+  "dashboard:partner.resolve",
+  "dashboard:partner.snapshot.generate",
+  "dashboard:partner.snapshot.verify"
+]
+
+
+⸻
+
+EXPLICIT EXCLUSIONS (DO NOT IMPLEMENT)
+	•	❌ UI components
+	•	❌ Menus, navigation, routing
+	•	❌ Partner creation logic
+	•	❌ Tenant provisioning
+	•	❌ Billing or subscription state
+	•	❌ Incentive calculation
+	•	❌ AI execution logic
+	•	❌ Database access
+
+⸻
+
+FINAL DELIVERABLE
+
+Provide a Completion Report containing:
+	1.	Summary of Partner Dashboard declarations
+	2.	Section list with gating rules
+	3.	Proof of Phase 4A consumption
+	4.	Test results
+	5.	Final commit SHA
+
+⸻
+
+STOP RULE
+
+After completion:
+
+⛔ STOP
+⛔ Do NOT proceed to Phase 4D
+⛔ Await explicit authorization
+
+⸻
+
+ACKNOWLEDGEMENT FORMAT
+
+Reply with:
+
+“I acknowledge and will implement Phase 4C exactly as instructed.”
+
+Then proceed.
