@@ -1,0 +1,12 @@
+{
+  "moduleId": "webwaka-suite-partner-dashboard",
+  "version": "0.0.0",
+  "class": "suite",
+  "type": "dashboard",
+  "dependencies": [],
+  "capabilities": [],
+  "metadata": {
+    "author": "WebWaka Team",
+    "license": "Proprietary"
+  }
+}
